@@ -1,0 +1,12 @@
+com\gp\runner\ViewCountRunner.class
+com\gp\controller\UploadController.class
+com\gp\controller\CommentController.class
+com\gp\controller\CategoryController.class
+com\gp\controller\LinkController.class
+com\gp\config\SecurityConfig.class
+com\gp\GPBlogAppliication.class
+com\gp\job\UpdateViewCountJob.class
+com\gp\controller\BlogLoginController.class
+com\gp\controller\ArticleController.class
+com\gp\controller\UserController.class
+com\gp\filter\JwtAutHen.class

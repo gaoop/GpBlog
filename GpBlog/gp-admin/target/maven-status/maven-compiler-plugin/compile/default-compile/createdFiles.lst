@@ -1,0 +1,10 @@
+com\gp\controller\SystemMenuController.class
+com\gp\controller\UploadController.class
+com\gp\controller\ArticleController.class
+com\gp\BlogAdminApplication.class
+com\gp\controller\LoginController.class
+com\gp\controller\UserController.class
+com\gp\controller\CategoryController.class
+com\gp\config\SecurityConfig.class
+com\gp\controller\TagController.class
+com\gp\filter\JwtAutHen.class
