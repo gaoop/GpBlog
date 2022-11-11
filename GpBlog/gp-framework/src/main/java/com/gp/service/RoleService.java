@@ -3,6 +3,7 @@ package com.gp.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.gp.domain.ResponseResult;
 import com.gp.domain.entity.Role;
+import com.gp.domain.entity.RoleMenu;
 
 import java.util.List;
 
@@ -17,7 +18,16 @@ public interface RoleService extends IService<Role> {
 
     List<String> selectRoleKeyUserId(Long id);
 
-    ResponseResult getInfo(Integer pageNum, Integer pageSize, String roleName);
+    ResponseResult getInfo(Integer pageNum, Integer pageSize, String roleName,String status);
 
     ResponseResult grtchangeStatus(Role role);
+
+    void insertRole(Role role);
+
+
+    void updateRole(Role role);
+
+    List<Role> selectRoleAll();
+
+    List<Long> selectRoleIdByUserId(Long userId);
 }

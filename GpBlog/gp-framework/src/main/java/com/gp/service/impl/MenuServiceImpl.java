@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.gp.constants.SystemConstants;
 import com.gp.domain.ResponseResult;
-import com.gp.domain.dto.MenuDto;
 import com.gp.domain.entity.Menu;
 import com.gp.domain.vo.MenuVo;
 import com.gp.enums.AppHttpCodeEnum;
@@ -68,8 +67,11 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     }
 
     @Override
-    public ResponseResult getList(){
-        List<Menu> list = list();
+    public ResponseResult getList(String menuName, String status){
+        LambdaQueryWrapper<Menu> queryWrapper=new LambdaQueryWrapper<>();
+        queryWrapper.like(StringUtils.hasText(menuName),Menu::getMenuName,menuName);
+        queryWrapper.eq(StringUtils.hasText(status),Menu::getStatus,status);
+        List<Menu> list = list(queryWrapper);
         return ResponseResult.okResult(list);
     }
 
@@ -102,6 +104,23 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
             vs = BeanCopyUtils.copyBean(menu, MenuVo.class);
         }
         return ResponseResult.okResult(vs);
+    }
+
+    @Override
+    public List<Menu> selectMenuList(Menu menu) {
+        LambdaQueryWrapper<Menu> queryWrapper = new LambdaQueryWrapper<>();
+        //menuName模糊查询
+        queryWrapper.like(StringUtils.hasText(menu.getMenuName()),Menu::getMenuName,menu.getMenuName());
+        queryWrapper.eq(StringUtils.hasText(menu.getStatus()),Menu::getStatus,menu.getStatus());
+        //排序 parent_id和order_num
+        queryWrapper.orderByAsc(Menu::getParentId,Menu::getOrderNum);
+        List<Menu> menus = list(queryWrapper);;
+        return menus;
+    }
+
+    @Override
+    public List<Long> selectMenuListByRoleId(Long id) {
+        return getBaseMapper().selectMenuListByRoleId(id);
     }
 
 

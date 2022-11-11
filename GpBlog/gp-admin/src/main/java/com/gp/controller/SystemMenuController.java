@@ -3,8 +3,11 @@ package com.gp.controller;
 import com.gp.domain.ResponseResult;
 import com.gp.domain.dto.MenuDto;
 import com.gp.domain.entity.Menu;
+import com.gp.domain.vo.MenuTreeVo;
+import com.gp.domain.vo.RoleMenuTreeSelectVo;
 import com.gp.service.CommentService;
 import com.gp.service.MenuService;
+import com.gp.utils.SystemConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,12 +18,11 @@ import java.util.List;
 public class SystemMenuController {
     @Autowired
     private MenuService menuService;
-    @Autowired
-    private CommentService commentService;
+    
 
     @GetMapping("/list")
-    public ResponseResult getList(){
-        return menuService.getList();
+    public ResponseResult getList(String menuName,String status){
+        return menuService.getList(menuName,status);
     }
     @PostMapping
     public ResponseResult addMenu(@RequestBody Menu menu){
@@ -36,8 +38,17 @@ public class SystemMenuController {
     }
     @GetMapping("/treeselect")
     public ResponseResult getTreeselect(){
-
-        return ResponseResult.okResult();
+        List<Menu> menus= menuService.selectMenuList(new Menu());
+        List<MenuTreeVo> options =  SystemConverter.buildMenuSelectTree(menus);
+        return ResponseResult.okResult(options);
+    }
+    @GetMapping("/roleMenuTreeselect/{id}")
+    public ResponseResult getTree(@PathVariable(value = "id") Long id){
+        List<Menu> menus = menuService.selectMenuList(new Menu());
+        List<Long> checkedKeys = menuService.selectMenuListByRoleId(id);
+        List<MenuTreeVo> menuTreeVos = SystemConverter.buildMenuSelectTree(menus);
+        RoleMenuTreeSelectVo vo = new RoleMenuTreeSelectVo(checkedKeys,menuTreeVos);
+        return ResponseResult.okResult(vo);
     }
 
 }

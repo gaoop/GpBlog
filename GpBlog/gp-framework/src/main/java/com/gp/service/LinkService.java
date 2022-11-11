@@ -14,4 +14,8 @@ import com.gp.domain.entity.Link;
 public interface LinkService extends IService<Link> {
 
     ResponseResult getAllLink();
+
+    ResponseResult getList(Integer pageNum, Integer pageSize, String name, String status);
+
+    ResponseResult getInfo(Long id);
 }

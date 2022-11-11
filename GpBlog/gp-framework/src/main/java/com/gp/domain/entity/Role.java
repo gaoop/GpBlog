@@ -2,6 +2,7 @@ package com.gp.domain.entity;
 
 import java.util.Date;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
@@ -44,6 +45,8 @@ public class Role {
     private Date updateTime;
     //备注
     private String remark;
+    @TableField(exist = false)
+    private Long[] menuIds;
 
 
 

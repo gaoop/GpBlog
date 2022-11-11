@@ -5,7 +5,7 @@
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://10.20.17.120:3306/sg_blog</jdbc-url>
+      <jdbc-url>jdbc:mysql://cn-cd-txy-1.starryfrp.com:7974/sg_blog</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>
